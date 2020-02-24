@@ -1,14 +1,14 @@
 import React from 'react'
 import chalk from 'chalk'
-import {render, fireEvent} from 'react-testing-library'
-import Usage from '../exercises-final/06'
-// import Usage from '../exercises/06'
+import { render, fireEvent } from 'react-testing-library'
+// import Usage from '../exercises-final/06'
+import Usage from '../exercises/06'
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time))
 
 test('renders', async () => {
   jest.spyOn(console, 'error')
-  const {container, unmount, getByText} = render(<Usage />)
+  const { container, unmount, getByText } = render(<Usage />)
   fireEvent.click(getByText('Start'))
   const label = container.querySelector('label')
   await sleep(20)
@@ -63,4 +63,9 @@ test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
 })
+/**
+ * useRef hook is not only used to refer DOM node, but also used to keep a reference to
+ * anything you want to use for a long time.
+ * Figure out why <Stopwatch /> cleanup callback is executed?
+ */
 ////////////////////////////////
