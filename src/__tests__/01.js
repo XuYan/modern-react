@@ -1,10 +1,10 @@
 import React from 'react'
-import {render, fireEvent} from 'react-testing-library'
+import { render, fireEvent } from 'react-testing-library'
 // import Usage from '../exercises-final/01'
 import Usage from '../exercises/01'
 
 test('Usage works', () => {
-  const {container} = render(<Usage />)
+  const { container } = render(<Usage />)
   const button = container.getElementsByTagName('button')[0]
   expect(button).toHaveTextContent(/0/)
   fireEvent.click(button)
@@ -26,4 +26,19 @@ test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
 })
+/**
+ * 1. useState hook returns an array [getter, setter] instead of an object { state, setState }
+ * because we don't have to do alias when we need a bunch of useState in a method.
+ * E.g.
+ * [ count, setCount ] = useState(0)
+ * [ name, setName ] = useState('Taylor')
+ *
+ * { state: count, setState: setCount } = useState(0)
+ * { state: name, setState: setName } = useState('Taylor')
+ *
+ * 2. 99% of the time, we don't need to use updater function.
+ *    setCount(count + 1)
+ *    instead of
+ *    setCount(prevCount => prevCount + 1)
+ */
 ////////////////////////////////
