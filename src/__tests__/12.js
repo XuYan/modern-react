@@ -1,8 +1,8 @@
 import React from 'react'
 import VanillaTilt from 'vanilla-tilt'
-import {render, wait, fireEvent} from 'react-testing-library'
-import Usage from '../exercises-final/12'
-// import Usage from '../exercises/12'
+import { render, wait, fireEvent } from 'react-testing-library'
+// import Usage from '../exercises-final/12'
+import Usage from '../exercises/12'
 
 beforeEach(() => {
   jest.spyOn(VanillaTilt, 'init')
@@ -13,7 +13,7 @@ afterEach(() => {
 })
 
 test('calls VanillaTilt.init with the root node', async () => {
-  const {container, getByText} = render(<Usage />)
+  const { container, getByText } = render(<Usage />)
   fireEvent.click(getByText(/show/i))
   await wait(() => expect(VanillaTilt.init).toHaveBeenCalledTimes(1))
   expect(container.querySelector('.tilt-root')).toHaveProperty('vanillaTilt')
@@ -32,4 +32,13 @@ test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
 })
+/**
+ * React.Suspense + React.lazy is the combination when we want to load libraries
+ * dynamically.
+ * Assume a large library that is only gonna be used when a checkbox is checked,
+ * we can use this combination to optimize our web app.
+ *
+ * React.lazy(factory), the factory is a function that should return a promise, which
+ * will be a React renderable component when resolved.
+ */
 ////////////////////////////////
