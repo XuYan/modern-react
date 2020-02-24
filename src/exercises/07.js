@@ -1,6 +1,6 @@
 // Stopwatch: useReducer (a la redux)
 // 🐨 1. swap useState with useReducer
-import React, {useState, useEffect, useRef} from 'react'
+import React, { useReducer, useEffect, useRef } from 'react'
 
 const buttonStyles = {
   border: '1px solid #ccc',
@@ -29,12 +29,36 @@ const buttonStyles = {
 //   }
 // }
 
+function reducer(state, action) {
+  switch (action.type) {
+    case 'SETRUNNING':
+      return {
+        ...state,
+        running: action.value,
+      }
+    case 'SETLAPSE':
+      return {
+        ...state,
+        lapse: action.value,
+      }
+    // handle more cases here...
+    case 'CLEAR':
+      return {
+        ...state,
+        running: false,
+        lapse: 0,
+      }
+    default:
+      break;
+  }
+}
+
 function Stopwatch() {
   // 🐨 3. swap these `useState` calls with a single `useReducer` call
   // 💰 `const [state, dispatch] = useReducer(reducer, initialStateObject)
   // https://reactjs.org/docs/hooks-reference.html#usereducer
-  const [lapse, setLapse] = useState(0)
-  const [running, setRunning] = useState(false)
+  const initialState = { lapse: 0, running: false }
+  const [{ running, lapse }, dispatch] = useReducer(reducer, initialState)
   const timerRef = useRef(null)
 
   useEffect(() => () => clearInterval(timerRef.current), [])
@@ -46,22 +70,21 @@ function Stopwatch() {
       const startTime = Date.now() - lapse
       timerRef.current = setInterval(() => {
         // 🐨 4. swap this with a call to dispatch
-        setLapse(Date.now() - startTime)
+        dispatch({ type: 'SETLAPSE', value: Date.now() - startTime })
       }, 0)
     }
     // 🐨 5. swap this with a call to dispatch
-    setRunning(!running)
+    dispatch({ type: 'SETRUNNING', value: !running })
   }
 
   function handleClearClick() {
     clearInterval(timerRef.current)
     // 🐨 6. swap this with a call to dispatch
-    setLapse(0)
-    setRunning(false)
+    dispatch({ type: 'CLEAR' })
   }
 
   return (
-    <div style={{textAlign: 'center'}}>
+    <div style={{ textAlign: 'center' }}>
       <label
         style={{
           fontSize: '5em',

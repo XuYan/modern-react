@@ -1,14 +1,14 @@
 import React from 'react'
 import chalk from 'chalk'
-import {render, fireEvent} from 'react-testing-library'
-import Usage from '../exercises-final/07'
-// import Usage from '../exercises/07'
+import { render, fireEvent } from 'react-testing-library'
+// import Usage from '../exercises-final/07'
+import Usage from '../exercises/07'
 
 const sleep = time => new Promise(resolve => setTimeout(resolve, time))
 
 test('renders', async () => {
   jest.spyOn(console, 'error')
-  const {container, unmount, getByText} = render(<Usage />)
+  const { container, unmount, getByText } = render(<Usage />)
   fireEvent.click(getByText('Start'))
   const label = container.querySelector('label')
   await sleep(20)
@@ -63,4 +63,9 @@ test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
 })
+/**
+ * useReducer(reducer) returns [state, dispatch],
+ * where dispatch can be used to dispatch actions which will be handled by
+ * the reducer.
+ */
 ////////////////////////////////
