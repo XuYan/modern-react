@@ -1,5 +1,5 @@
 import React from 'react'
-import {render, fireEvent, flushEffects} from 'react-testing-library'
+import { render, fireEvent, flushEffects } from 'react-testing-library'
 import Usage from '../exercises-final/03'
 // import Usage from '../exercises/03'
 
@@ -9,7 +9,7 @@ afterEach(() => {
 
 test('Usage works', async () => {
   window.localStorage.setItem('count', 3)
-  const {container} = render(<Usage />)
+  const { container } = render(<Usage />)
   const button = container.getElementsByTagName('button')[0]
   expect(button).toHaveTextContent(/3/)
   fireEvent.click(button)
@@ -33,4 +33,11 @@ test.skip('I submitted my elaboration and feedback', () => {
   const submitted = false // change this when you've submitted!
   expect(submitted).toBe(true)
 })
+/**
+ * We use useEffect(() => localStorage stuff) instead of call localStorage stuff directly
+ * because of two reasons:
+ * 1. We want to wait for things to be rendered on screen and then update storage.
+ *    This ensures data consistency.
+ * 2. localStorgage is blocking API so it could slow down the rendering of component.
+ */
 ////////////////////////////////
